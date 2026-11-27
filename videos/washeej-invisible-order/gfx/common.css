@@ -1,0 +1,5 @@
+@import url("../brand/fonts/fonts.css");
+:root{--burgundy:#59171b;--burgundy-deep:#3f0f13;--peach:#fed7b8;--paper:#faf6f2;--ink:#282828;--graphite:#141112;--ivory:#f6efe6}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:transparent}
+body{font-family:"Readex Pro",sans-serif;direction:rtl;-webkit-font-smoothing:antialiased}
