@@ -1,0 +1,485 @@
+{
+  "_readme": "Single source of truth for the edit. Times in seconds on the master timeline (30 fps, 1080x1920). VO cue times are ESTIMATES for an Egyptian read at natural pace; after recording, run tools/measure_vo.py and paste real line times into vo.lines, then shift shot boundaries that are marked follows_vo. Shots are expected at shots/<id>.mp4 (or shots/<id>_comp.mp4 after screen inserts/tracking are composited — the _comp version wins).",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "duration": 58.5,
+  "vo": {
+    "mode": "lines_or_single",
+    "single_file": "audio/vo.wav",
+    "single_offset": 1.2,
+    "lines": [
+      {
+        "id": "V1",
+        "start": 1.2,
+        "end": 4.0,
+        "text": "لو كلود بيعمل مواقع… وشيج لسه فاتحة ليه؟"
+      },
+      {
+        "id": "V2a",
+        "start": 4.3,
+        "end": 5.4,
+        "text": "سؤال في محلّه."
+      },
+      {
+        "id": "V2b",
+        "start": 5.6,
+        "end": 12.0,
+        "text": "تقدر تفتح كلود دلوقتي، توصف له الموقع أو التطبيق اللي في دماغك، وتشوف نسخة منه قدامك في نفس اليوم."
+      },
+      {
+        "id": "V3a",
+        "start": 12.4,
+        "end": 13.5,
+        "text": "طب تخيّل معايا."
+      },
+      {
+        "id": "V3b",
+        "start": 13.7,
+        "end": 19.4,
+        "text": "عميل دخل موقعك من موبايله، اختار اللي عاوزه، وداس «ابعت الطلب». ظهر له «تم الإرسال»."
+      },
+      {
+        "id": "V4",
+        "start": 20.6,
+        "end": 22.2,
+        "text": "بس الطلب ما وصلكش."
+      },
+      {
+        "id": "V5",
+        "start": 24.2,
+        "end": 28.6,
+        "text": "هو فاكر إنك هترد عليه. وإنت أصلًا ما تعرفش إنه دخل."
+      },
+      {
+        "id": "V6a",
+        "start": 29.4,
+        "end": 30.9,
+        "text": "هنا بيبان شغلنا."
+      },
+      {
+        "id": "V6b",
+        "start": 31.1,
+        "end": 38.2,
+        "text": "قبل ما الموقع ينزل، بنجرّب الرحلة اللي عميلك هيمشيها فعلًا، من أول ما يفتح الصفحة لحد ما طلبه يوصلك."
+      },
+      {
+        "id": "V6c",
+        "start": 38.5,
+        "end": 42.0,
+        "text": "ولو خطوة وقفت، بنصلّحها قبل ما أول عميل يجرّبها."
+      },
+      {
+        "id": "V7a",
+        "start": 42.6,
+        "end": 45.2,
+        "text": "إنت عملت الموقع عشان يشيل عنك شغل."
+      },
+      {
+        "id": "V7b",
+        "start": 45.4,
+        "end": 49.8,
+        "text": "لو كل يوم هتسيب شغلك عشان تصلّح فيه، يبقى زوّد لك شغلانة."
+      },
+      {
+        "id": "V8",
+        "start": 53.0,
+        "end": 55.8,
+        "text": "وشيج — نصنع الرابط بين علامتك وعملائها"
+      }
+    ]
+  },
+  "shots": [
+    {
+      "id": "S00",
+      "scene": "00 Cold open",
+      "start": 0.0,
+      "end": 0.9,
+      "special": "cold_open_forward",
+      "trim_in": 0.45,
+      "free_kit_note": "own Blender render (cgi/scene.py S00): impact at 1.0s of the render → 0.55s into the cold open"
+    },
+    {
+      "id": "S00R",
+      "scene": "00 Cold open",
+      "start": 0.9,
+      "end": 1.2,
+      "special": "rewind",
+      "source": "S00",
+      "note": "S00 reversed at 3x + tmix smear + 2-frame peach flash"
+    },
+    {
+      "id": "S01A",
+      "scene": "01 Question",
+      "start": 1.2,
+      "end": 2.6
+    },
+    {
+      "id": "S01B",
+      "scene": "01 Question",
+      "start": 2.6,
+      "end": 3.4,
+      "source": "S01A",
+      "trim_in": 1.4,
+      "free_kit_note": "merged generation: S01A clip continues into the crash zoom"
+    },
+    {
+      "id": "S01C",
+      "scene": "01 Question",
+      "start": 3.4,
+      "end": 4.6
+    },
+    {
+      "id": "S02A",
+      "scene": "02 AI can build",
+      "start": 4.6,
+      "end": 8.4
+    },
+    {
+      "id": "S02B",
+      "scene": "02 AI can build",
+      "start": 8.4,
+      "end": 12.6,
+      "note": "FPV ends exiting through the customer's phone screen — match cut into S03A"
+    },
+    {
+      "id": "S03A",
+      "scene": "03 Customer",
+      "start": 12.6,
+      "end": 15.4,
+      "insert": {
+        "file": "renders/GFX_03_phone_ui.mov",
+        "from": 0.0,
+        "method": "screen_replace_tracked"
+      }
+    },
+    {
+      "id": "S03B",
+      "scene": "03 Customer",
+      "start": 15.4,
+      "end": 16.4,
+      "insert": {
+        "file": "renders/GFX_03_phone_ui.mov",
+        "from": 1.0,
+        "method": "screen_replace_tracked"
+      },
+      "source": "S03A",
+      "trim_in": 2.8,
+      "free_kit_note": "merged generation"
+    },
+    {
+      "id": "S03C",
+      "scene": "03 Customer",
+      "start": 16.4,
+      "end": 19.2,
+      "insert": {
+        "file": "renders/GFX_03_phone_ui.mov",
+        "from": 2.0,
+        "method": "screen_replace_tracked",
+        "note": "freeze at contact; let the success sheet (GFX t=2.9-3.6) play on the frozen screen landing on «ظهر له تم الإرسال» ≈ 18.4"
+      }
+    },
+    {
+      "id": "S03D",
+      "scene": "03 Customer",
+      "start": 19.2,
+      "end": 20.4,
+      "insert": {
+        "file": "renders/GFX_00_capsule_label.mov",
+        "from": 0.0,
+        "method": "tracked_to_capsule"
+      }
+    },
+    {
+      "id": "S04A",
+      "scene": "04 Failure",
+      "start": 20.4,
+      "end": 22.4
+    },
+    {
+      "id": "S04B",
+      "scene": "04 Failure",
+      "start": 22.4,
+      "end": 26.0,
+      "overlays": [
+        {
+          "file": "renders/GFX_04_sent_ne_received.mov",
+          "at": 22.6,
+          "from": 0.0
+        }
+      ],
+      "note": "impact at 22.40; freeze; music cut to silence 22.2-24.0",
+      "trim_in": 0.9,
+      "free_kit_note": "Blender render: impact at 1.0s"
+    },
+    {
+      "id": "S05A",
+      "scene": "05 Two realities",
+      "start": 26.0,
+      "end": 27.4
+    },
+    {
+      "id": "S05B",
+      "scene": "05 Two realities",
+      "start": 27.4,
+      "end": 29.2,
+      "insert": {
+        "file": "renders/GFX_05_dashboard_empty.mov",
+        "from": 0.0,
+        "method": "screen_replace_tracked"
+      },
+      "source": "S05A",
+      "trim_in": 1.4,
+      "free_kit_note": "merged generation"
+    },
+    {
+      "id": "S06",
+      "scene": "06 WASHEEJ effect",
+      "start": 29.2,
+      "end": 42.4,
+      "overlays": [
+        {
+          "file": "renders/GFX_06_journey.mov",
+          "at": 29.4,
+          "from": 0.0
+        }
+      ],
+      "note": "one-take built from S06A+S06B+S06C stitched on hidden wipes; final 0.7s lands on dashboard with GFX_05 arrive (from 1.0)",
+      "free_kit_note": "Blender one-take render (cgi/scene.py S06), 13.6s"
+    },
+    {
+      "id": "S07A",
+      "scene": "07 Business value",
+      "start": 42.4,
+      "end": 45.0
+    },
+    {
+      "id": "S07B",
+      "scene": "07 Business value",
+      "start": 45.0,
+      "end": 49.8,
+      "insert": {
+        "file": "renders/GFX_07_window_*.png",
+        "method": "3d_cards_tracked"
+      }
+    },
+    {
+      "id": "S07C",
+      "scene": "07 Business value",
+      "start": 49.8,
+      "end": 51.4,
+      "insert": {
+        "file": "renders/GFX_05_dashboard_arrive.mov",
+        "from": 0.6,
+        "method": "screen_replace_tracked"
+      }
+    },
+    {
+      "id": "S08A",
+      "scene": "08 Brand reveal",
+      "start": 51.4,
+      "end": 52.4,
+      "source": "S07C",
+      "trim_in": 1.6,
+      "free_kit_note": "merged generation"
+    },
+    {
+      "id": "END",
+      "scene": "08 Brand reveal",
+      "start": 52.4,
+      "end": 58.5,
+      "source_file": "renders/GFX_08_endcard.mov",
+      "from": 0.0,
+      "xfade_in": 0.25,
+      "note": "logo writes 53.35-54.85 under «وشيج»; tagline lands 55.15"
+    }
+  ],
+  "music": {
+    "file": "audio/music.wav",
+    "gain_db": -16,
+    "automation": [
+      {
+        "t": 0.0,
+        "db": -10
+      },
+      {
+        "t": 1.2,
+        "db": -20
+      },
+      {
+        "t": 12.4,
+        "db": -18
+      },
+      {
+        "t": 20.4,
+        "db": -15
+      },
+      {
+        "t": 22.15,
+        "db": -15
+      },
+      {
+        "t": 22.25,
+        "db": -80
+      },
+      {
+        "t": 24.0,
+        "db": -80
+      },
+      {
+        "t": 26.0,
+        "db": -24
+      },
+      {
+        "t": 29.2,
+        "db": -20
+      },
+      {
+        "t": 42.4,
+        "db": -19
+      },
+      {
+        "t": 49.8,
+        "db": -12
+      },
+      {
+        "t": 51.4,
+        "db": -12
+      },
+      {
+        "t": 53.0,
+        "db": -18
+      },
+      {
+        "t": 57.5,
+        "db": -18
+      },
+      {
+        "t": 58.5,
+        "db": -60
+      }
+    ]
+  },
+  "sfx": [
+    {
+      "t": 0.0,
+      "file": "audio/sfx/tunnel_whoosh.wav",
+      "db": -8
+    },
+    {
+      "t": 0.55,
+      "file": "audio/sfx/impact_glass_thud.wav",
+      "db": -4
+    },
+    {
+      "t": 0.9,
+      "file": "audio/sfx/tape_rewind.wav",
+      "db": -6
+    },
+    {
+      "t": 2.6,
+      "file": "audio/sfx/crash_zoom_whoosh.wav",
+      "db": -10
+    },
+    {
+      "t": 3.4,
+      "file": "audio/sfx/digital_assemble.wav",
+      "db": -14
+    },
+    {
+      "t": 8.4,
+      "file": "audio/sfx/fpv_pass.wav",
+      "db": -12
+    },
+    {
+      "t": 13.4,
+      "file": "audio/sfx/ui_tap_soft.wav",
+      "db": -16
+    },
+    {
+      "t": 16.4,
+      "file": "audio/sfx/time_freeze_suck.wav",
+      "db": -8
+    },
+    {
+      "t": 18.4,
+      "file": "audio/sfx/ui_success_chime.wav",
+      "db": -14
+    },
+    {
+      "t": 19.2,
+      "file": "audio/sfx/capsule_launch.wav",
+      "db": -10
+    },
+    {
+      "t": 20.4,
+      "file": "audio/sfx/tunnel_whoosh.wav",
+      "db": -9
+    },
+    {
+      "t": 22.4,
+      "file": "audio/sfx/impact_glass_thud.wav",
+      "db": -3
+    },
+    {
+      "t": 22.45,
+      "file": "audio/sfx/room_tone_low.wav",
+      "db": -26
+    },
+    {
+      "t": 27.4,
+      "file": "audio/sfx/glass_pass.wav",
+      "db": -16
+    },
+    {
+      "t": 29.2,
+      "file": "audio/sfx/thread_pluck_warm.wav",
+      "db": -12
+    },
+    {
+      "t": 38.3,
+      "file": "audio/sfx/thread_snag.wav",
+      "db": -10
+    },
+    {
+      "t": 39.6,
+      "file": "audio/sfx/thread_knot_tie.wav",
+      "db": -11
+    },
+    {
+      "t": 40.2,
+      "file": "audio/sfx/thread_run_rise.wav",
+      "db": -12
+    },
+    {
+      "t": 41.7,
+      "file": "audio/sfx/order_arrive_ding.wav",
+      "db": -12
+    },
+    {
+      "t": 45.0,
+      "file": "audio/sfx/notifications_swarm.wav",
+      "db": -14
+    },
+    {
+      "t": 49.8,
+      "file": "audio/sfx/reverse_swoosh_release.wav",
+      "db": -10
+    },
+    {
+      "t": 50.6,
+      "file": "audio/sfx/order_arrive_ding.wav",
+      "db": -16
+    },
+    {
+      "t": 52.4,
+      "file": "audio/sfx/thread_pluck_warm.wav",
+      "db": -12
+    }
+  ],
+  "loudness": {
+    "integrated_lufs": -14,
+    "true_peak_db": -1.0
+  },
+  "_free_kit": "16 generations instead of 21: S00/S01B/S03B/S05B/S08A are cut from the clip named in 'source' at 'trim_in'. Set S00 trim_in to the impact second of your chosen S04B take."
+}

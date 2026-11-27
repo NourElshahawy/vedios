@@ -1,0 +1,25 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><link rel="stylesheet" href="common.css">
+<style>
+/* Scene 07 pressure windows — each .win is exported as its own alpha PNG (tools/export_windows.js)
+   to be placed as 3D cards around the owner during the dolly zoom. Real, specific problems — no fake code rain. */
+body{padding:40px;display:flex;flex-wrap:wrap;gap:60px;width:2000px;height:auto;overflow:visible}
+.win{width:860px;border-radius:28px;background:rgba(250,246,242,.96);box-shadow:0 30px 80px rgba(0,0,0,.35);overflow:hidden;color:#231a16}
+.bar{height:64px;background:#ece4dd;display:flex;align-items:center;gap:12px;padding:0 26px;direction:ltr}
+.bar i{width:18px;height:18px;border-radius:50%;background:#d9cfc8}.bar i:first-child{background:#e0615f}
+.bar span{margin-left:auto;font-size:22px;color:#8a7d76;direction:rtl}
+.bd{padding:36px 44px 44px;font-size:34px;line-height:1.55}
+.t{font-size:44px;font-weight:700;display:flex;align-items:center;gap:18px;margin-bottom:12px}
+.r{width:54px;height:54px;border-radius:50%;background:#d64a4f;color:#fff;display:grid;place-items:center;font-size:34px;flex:none}
+.y{background:#e3a23a}
+.m{color:#6f5d52}.mono{font-family:ui-monospace,Menlo,monospace;direction:ltr;text-align:left;font-size:28px;background:#f1ebe5;border-radius:14px;padding:18px 22px;margin-top:14px;color:#7b2b2e}
+.msg{display:flex;gap:20px}.av{width:76px;height:76px;border-radius:50%;background:#c9b4a5;flex:none}
+.bub{background:#fff;border-radius:24px;padding:20px 26px;box-shadow:0 2px 0 #e6ddd6}
+.time{font-size:22px;color:#a3958d;margin-top:8px}
+</style></head><body>
+<div class="win" id="w1"><div class="bar"><i></i><i></i><i></i><span>دار البُنّ — الطلبات</span></div><div class="bd"><div class="t"><span class="r">!</span>تعذّر حفظ الطلب</div><div class="m">الطلب ظهر للعميل «تم الإرسال» لكنه ما اتسجلش في قاعدة البيانات.</div><div class="mono">POST /api/orders → 500</div></div></div>
+<div class="win" id="w2"><div class="bar"><i></i><i></i><i></i><span>واتساب</span></div><div class="bd"><div class="msg"><div class="av"></div><div><div class="bub">أنا طلبت من يومين ومحدش كلّمني خالص… هو الطلب وصل؟</div><div class="time">عميل · 10:14 ص</div></div></div></div></div>
+<div class="win" id="w3"><div class="bar"><i></i><i></i><i></i><span>البريد</span></div><div class="bd"><div class="t"><span class="r y">!</span>إشعارات الطلبات متوقفة</div><div class="m">آخر إيميل طلب جديد اتبعت من 3 أيام.</div><div class="mono">SMTP: authentication failed</div></div></div>
+<div class="win" id="w4"><div class="bar"><i></i><i></i><i></i><span>الدفع</span></div><div class="bd"><div class="t"><span class="r">!</span>دفعة بدون طلب</div><div class="m">العميل دفع 780 ج.م — ومفيش طلب مقابلها في اللوحة.</div></div></div>
+<div class="win" id="w5"><div class="bar"><i></i><i></i><i></i><span>تقييمات</span></div><div class="bd"><div class="msg"><div class="av" style="background:#b9c2c9"></div><div><div class="bub"><div style="color:#e3a23a;direction:ltr;text-align:right">★☆☆☆☆</div>«الموقع شكله حلو بس محدش بيرد.»</div><div class="time">تقييم جديد · منذ ساعة</div></div></div></div></div>
+<div class="win" id="w6"><div class="bar"><i></i><i></i><i></i><span>نموذج التواصل</span></div><div class="bd"><div class="t"><span class="r y">!</span>12 رسالة ما وصلتش</div><div class="m">النموذج بيعرض «شكرًا لتواصلك» من غير ما يبعت حاجة.</div></div></div>
+</body></html>

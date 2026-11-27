@@ -1,0 +1,69 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<link rel="stylesheet" href="common.css">
+<style>
+/* Scene 06 — the WASHEEJ thread tests the journey. Alpha overlay 1080x1920, 13.0s, cued to the VO:
+   0.0 «هنا بيبان شغلنا» thread enters · 1.6–8.6 «قبل ما الموقع ينزل… لحد ما طلبه يوصلك» nodes 1-3 pass, thread reaches the server
+   9.0 «ولو خطوة وقفت» ✕ snag · 10.2 «بنصلّحها» knot/repair · 10.8–12.3 «قبل ما أول عميل يجرّبها» full re-test, order lands.
+   Use as the label/HUD layer over the CG one-take (S06A–C). Labels sit inside the 9:16 safe area. */
+svg{position:absolute;inset:0}
+.n{position:absolute;right:300px;transform:translateY(-50%);display:flex;align-items:center;gap:22px;direction:rtl}
+.chip{padding:18px 34px;border-radius:44px;background:rgba(20,14,15,.55);border:2px solid rgba(254,215,184,.28);color:#f6efe6;font-size:44px;font-weight:500;backdrop-filter:blur(6px);white-space:nowrap}
+.st{font-size:30px;font-weight:500;color:#fed7b8;white-space:nowrap}
+.n.ok .chip{border-color:rgba(254,215,184,.9);box-shadow:0 0 34px rgba(254,215,184,.35)}
+.n.bad .chip{border-color:#d64a4f;box-shadow:0 0 40px rgba(214,74,79,.55)}
+.n.bad .st{color:#ff8d8f}
+</style></head><body>
+<svg width="1080" height="1920" viewBox="0 0 1080 1920"><defs>
+ <filter id="g" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter>
+ <filter id="g2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="22"/></filter></defs>
+ <g id="halo" filter="url(#g2)" opacity=".9"></g><g id="fib"></g>
+ <g id="nodes"></g>
+ <circle id="head" r="14" fill="#fff1e4" filter="url(#g)"/>
+ <g id="knot" opacity="0"><circle r="30" fill="none" stroke="#fed7b8" stroke-width="3"/><circle r="52" fill="none" stroke="#fed7b8" stroke-width="1.5" opacity=".5"/></g>
+ <g id="x" opacity="0" stroke="#ff6b6f" stroke-width="7" stroke-linecap="round"><path d="M-22 -22L22 22M22 -22L-22 22"/></g>
+</svg>
+<div id="labels"></div>
+<script src="anim.js"></script>
+<script>
+const NS='http://www.w3.org/2000/svg';
+const N=[['المنتج',360],['السلة',650],['إرسال الطلب',940],['الخادم',1230],['لوحة الطلبات',1520]];
+const X=820; // thread runs down the right third (RTL lead side), labels read toward it
+// thread path: enters from top-right, weaves through each node
+let d=`M 1130 120 C 980 180, ${X} 250, ${X} ${N[0][1]}`;
+for(let i=1;i<N.length;i++){const y0=N[i-1][1],y1=N[i][1],w=(i%2?1:-1)*70;d+=` C ${X+w} ${y0+110}, ${X+w} ${y1-110}, ${X} ${y1}`;}
+const mk=(par,attrs)=>{const e=document.createElementNS(NS,'path');for(const k in attrs)e.setAttribute(k,attrs[k]);par.appendChild(e);return e;};
+const halo=mk($('#halo'),{d,fill:'none',stroke:'#8f2a31','stroke-width':26,'stroke-linecap':'round'});
+const fibs=[];for(let k=0;k<7;k++){const o=(k-3)*2.2;fibs.push(mk($('#fib'),{d,fill:'none',stroke:'#fed7b8','stroke-width':k===3?4:1.1,opacity:k===3?1:.45,'stroke-linecap':'round',transform:`translate(${o} ${o*.4})`}));}
+const L=halo.getTotalLength();[halo,...fibs].forEach(p=>p.style.strokeDasharray=L+' '+L);
+// arc-length position of each node
+const at=[];{let j=0;for(let s=0;s<=L;s+=2){const p=halo.getPointAtLength(s);if(j<N.length&&Math.abs(p.y-N[j][1])<3&&Math.abs(p.x-X)<4){at.push(s);j++;s+=40;}}}
+N.forEach(([t,y],i)=>{const c=document.createElementNS(NS,'circle');c.setAttribute('cx',X);c.setAttribute('cy',y);c.setAttribute('r',16);c.setAttribute('fill','#2a1c1d');c.setAttribute('stroke','#fed7b8');c.setAttribute('stroke-width',3);c.id='c'+i;$('#nodes').appendChild(c);
+ const el=document.createElement('div');el.className='n';el.id='n'+i;el.style.top=y+'px';el.innerHTML=`<div class="chip">${t}</div><div class="st" id="s${i}"></div>`;$('#labels').appendChild(el);});
+// keyframes of the head's arc position
+const K=[[0,0],[1.4,at[0]],[3.4,at[1]],[5.6,at[2]],[8.4,at[3]]];
+function headS(t){if(t<=K[0][0])return 0;for(let i=1;i<K.length;i++){if(t<=K[i][0]){const x=(t-K[i-1][0])/(K[i][0]-K[i-1][0]);return lerp(K[i-1][1],K[i][1],eio(x));}}return at[3];}
+const pulseS=t=>lerp(0,L,eio(prog(t,10.8,12.3)));
+window.seek=t=>{
+ const s0=headS(t), ps=pulseS(t), s=t>=10.8?Math.max(s0,ps):s0;
+ [halo,...fibs].forEach((p,i)=>{p.style.strokeDashoffset=L-s+(i?Math.abs(i-4)*6:0);});
+ const hp=halo.getPointAtLength(Math.max(1,t>=10.8?ps:s0));$('#head').setAttribute('cx',hp.x);$('#head').setAttribute('cy',hp.y);
+ const stall=t>8.4&&t<10.2; $('#head').setAttribute('fill',stall?'#ff8d8f':'#fff1e4');
+ $('#head').setAttribute('r',14+(stall?6*Math.abs(Math.sin(t*9)):0));
+ const retest=t>=10.8;
+ N.forEach((_,i)=>{const el=$('#n'+i),st=$('#s'+i),c=$('#c'+i);
+  const reached=(t>=10.8?ps:s0)>=at[i]-2; const intro=eo(prog(t,0.6+i*0.25,1.2+i*0.25));
+  el.style.opacity=intro; el.style.transform=`translateY(-50%) translateX(${(1-intro)*-30}px)`;
+  let cls='n',txt='',fill='#2a1c1d';
+  if(i===3&&t>=8.9&&t<10.2){cls='n bad';txt='الطلب ما اتسجلش ✕';fill='#d64a4f';}
+  else if(i===3&&t>=10.2&&t<10.8){cls='n ok';txt='اتصلّح';fill='#fed7b8';}
+  else if(retest&&!reached&&i<3){cls='n';txt='';fill='#2a1c1d';}
+  else if(reached&&(i<3||retest)){cls='n ok';txt=(i===4?'الطلب وصل ✓':'اتجرّب ✓');fill='#fed7b8';}
+  el.className=cls;st.textContent=txt;c.setAttribute('fill',fill);});
+ // snag ✕ then repair knot at the server node
+ const xp=prog(t,8.9,9.1)*(1-prog(t,10.0,10.2)); $('#x').setAttribute('opacity',xp); $('#x').setAttribute('transform',`translate(${X} ${N[3][1]}) scale(${lerp(1.6,1,eo(prog(t,8.9,9.1)))})`);
+ const kp=eo(prog(t,10.2,10.7)); $('#knot').setAttribute('opacity',kp*(1-prog(t,11.4,12))); $('#knot').setAttribute('transform',`translate(${X} ${N[3][1]}) scale(${lerp(.4,1.4,kp)})`);
+ // tremor of the whole thread while stalled
+ $('#fib').setAttribute('transform',stall?`translate(${Math.sin(t*61)*2} 0)`:'');
+ const out=1-prog(t,12.5,13); document.body.style.opacity=out;
+};
+</script></body></html>

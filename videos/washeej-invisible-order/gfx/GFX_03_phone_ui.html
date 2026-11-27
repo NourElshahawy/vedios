@@ -1,0 +1,78 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<link rel="stylesheet" href="common.css">
+<style>
+/* Screen-replacement plate for the customer's phone (Scene 03). 1170x2532 = iPhone 6.1" native.
+   Fictional client store "دار البُنّ" — a beautiful AI-built site (Act 1: The Illusion). */
+body{background:#f7f1ea;color:#231a16;font-size:44px}
+.wrap{position:absolute;inset:0;overflow:hidden}
+.status,.nav{position:relative;z-index:5;background:#f7f1ea}
+.status{height:150px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 90px 26px;font-weight:600;font-size:46px;direction:ltr}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:20px 70px;height:150px}
+.brand{font-weight:700;font-size:60px;letter-spacing:-.5px}
+.brand small{display:block;font-size:30px;font-weight:400;color:#8a7466;letter-spacing:0}
+.cart{width:96px;height:96px;border-radius:50%;background:#efe4d8;display:grid;place-items:center;position:relative}
+.cart b{position:absolute;top:-6px;left:-6px;background:#231a16;color:#fff;font-size:28px;width:46px;height:46px;border-radius:50%;display:grid;place-items:center}
+.hero{margin:30px 60px 0;height:1050px;border-radius:64px;overflow:hidden;position:relative;background:radial-gradient(80% 70% at 50% 40%,#e9c9a8 0%,#c99a72 55%,#7a4a30 100%)}
+.hero svg{position:absolute;inset:0;width:100%;height:100%}
+.pill{position:absolute;top:44px;right:44px;background:rgba(255,255,255,.75);padding:14px 30px;border-radius:40px;font-size:32px;font-weight:500}
+.info{padding:56px 70px 0}
+h1{font-size:76px;font-weight:700;line-height:1.25}
+.sub{color:#8a7466;font-size:38px;margin-top:10px}
+.price{font-size:64px;font-weight:700;margin-top:34px}
+.price span{font-size:36px;color:#8a7466;font-weight:400;margin-right:10px}
+.sizes{display:flex;gap:24px;margin-top:44px}
+.chip{flex:1;border:3px solid #e3d5c7;border-radius:36px;padding:30px 0;text-align:center;font-size:40px;font-weight:500;background:#fff}
+.chip.on{border-color:#231a16;background:#231a16;color:#fff}
+.btn{position:absolute;left:60px;right:60px;bottom:120px;height:190px;border-radius:95px;background:#231a16;color:#fff;font-size:58px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:24px;overflow:hidden}
+.ripple{position:absolute;border-radius:50%;background:rgba(254,215,184,.45);width:40px;height:40px}
+.spin{width:64px;height:64px;border:7px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%}
+.sheet{position:absolute;left:0;right:0;bottom:0;height:1180px;background:#fff;border-radius:80px 80px 0 0;box-shadow:0 -30px 80px rgba(0,0,0,.18);padding:90px 80px;text-align:center}
+.tick{width:230px;height:230px;border-radius:50%;background:#1f8a5b;margin:0 auto;display:grid;place-items:center}
+.sheet h2{font-size:96px;font-weight:700;margin-top:60px}
+.sheet p{font-size:44px;color:#6f5d52;margin-top:24px;line-height:1.5}
+.ord{display:inline-block;margin-top:50px;background:#f4ece4;border-radius:30px;padding:24px 44px;font-size:40px;font-weight:500}
+.dim{position:absolute;inset:0;background:#120c09}
+.home{position:absolute;bottom:26px;left:50%;width:420px;height:14px;border-radius:7px;background:#231a16;transform:translateX(-50%)}
+</style></head><body><div class="wrap" id="page">
+ <div class="status"><span>9:41</span><span>●●● ▮</span></div>
+ <div class="nav"><div class="brand">دار البُنّ<small>محمصة مختصة</small></div><div class="cart"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#231a16" stroke-width="2"><path d="M3 4h2l2.4 11h11L21 7H7"/><circle cx="9" cy="19.5" r="1.5"/><circle cx="17" cy="19.5" r="1.5"/></svg><b id="count">0</b></div></div>
+ <div class="hero"><div class="pill">تحميص هذا الأسبوع</div>
+  <svg viewBox="0 0 1059 1050"><defs><linearGradient id="bag" x1="0" x2="1"><stop offset="0" stop-color="#2b1d17"/><stop offset=".55" stop-color="#4a3328"/><stop offset="1" stop-color="#21150f"/></linearGradient></defs>
+   <ellipse cx="530" cy="930" rx="300" ry="40" fill="rgba(40,20,10,.35)"/>
+   <path d="M330 260 Q330 220 370 215 L690 215 Q730 220 730 260 L760 900 Q760 935 725 935 L335 935 Q300 935 300 900 Z" fill="url(#bag)"/>
+   <rect x="330" y="215" width="400" height="60" fill="#1a110c"/>
+   <rect x="350" y="430" width="360" height="300" rx="20" fill="#f3e6d6"/>
+   <text x="530" y="560" text-anchor="middle" font-family="Readex Pro" font-weight="700" font-size="62" fill="#231a16">حَراز</text>
+   <text x="530" y="630" text-anchor="middle" font-family="Readex Pro" font-size="28" fill="#7a5d4c">يمني · تحميص متوسط</text>
+  </svg></div>
+ <div class="info"><h1>بُن يمني — حَراز</h1><div class="sub">نكهات شوكولاتة داكنة وزبيب</div>
+  <div class="price">420 <span>ج.م</span></div>
+  <div class="sizes"><div class="chip" id="c1">250 جم</div><div class="chip" id="c2">500 جم</div><div class="chip" id="c3">1 كجم</div></div></div>
+ <div class="btn" id="btn"><span id="lbl">ابعت الطلب</span><div class="spin" id="spin" style="display:none"></div><div class="ripple" id="rip"></div></div>
+ <div class="dim" id="dim"></div>
+ <div class="sheet" id="sheet"><div class="tick"><svg width="130" height="130" viewBox="0 0 24 24"><path id="chk" d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <h2>تم الإرسال</h2><p>شكرًا لطلبك! هنتواصل معاك<br>في أقرب وقت لتأكيد التوصيل.</p><div class="ord">رقم الطلب ‎#1047</div></div>
+ <div class="home"></div>
+</div>
+<script src="anim.js"></script>
+<script>
+const chk=$('#chk'); const CL=chk.getTotalLength(); chk.style.strokeDasharray=CL;
+// CUES (sec): 0.9 size tap · 2.0 finger contact on «ابعت الطلب» (= bullet-time freeze frame) · 2.35 spinner · 2.9 success
+window.seek=t=>{
+ const scroll=lerp(0,-260,eio(prog(t,0,1.6)));
+ $$('.hero,.info').forEach(e=>e.style.transform=`translateY(${scroll}px)`);
+ const sel=t>0.9; $('#c1').className='chip'+(sel?'':' on'); $('#c2').className='chip'+(sel?' on':'');
+ $('#c2').style.transform=`scale(${1-.04*Math.sin(Math.PI*prog(t,0.85,1.1))})`;
+  document.querySelector('.price').innerHTML=(sel?'780':'420')+' <span>ج.م</span>';
+ const press=prog(t,2.0,2.12)*(1-prog(t,2.2,2.32));
+ $('#btn').style.transform=`scale(${1-.035*press})`;
+ const r=prog(t,2.0,2.6); const rip=$('#rip'); rip.style.opacity=(1-r)*(t>=2?1:0);
+ rip.style.transform=`scale(${1+r*40})`; rip.style.left='480px'; rip.style.top='75px';
+ const loading=t>=2.3&&t<2.9; $('#lbl').style.display=loading?'none':'block'; $('#spin').style.display=loading?'block':'none';
+ $('#spin').style.transform=`rotate(${t*720}deg)`;
+ const s=eback(prog(t,2.9,3.4)); $('#sheet').style.transform=`translateY(${(1-s)*1250}px)`;
+ $('#dim').style.opacity=.35*prog(t,2.9,3.2);
+ chk.style.strokeDashoffset=CL*(1-eo(prog(t,3.15,3.55)));
+ $('#count').textContent=t>=2.9?'1':'0';
+};
+</script></body></html>

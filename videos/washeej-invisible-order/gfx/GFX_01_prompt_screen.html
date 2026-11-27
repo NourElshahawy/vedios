@@ -1,0 +1,23 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<link rel="stylesheet" href="common.css">
+<style>
+/* Laptop screen-replacement plate for S01A (1920x1200). Neutral AI-chat input — no product logos or trade dress.
+   Night scene: dark UI so the screen light on Karim's hands matches the plate. Typing 0.2→1.5s, send at 1.7s. */
+body{background:#121011;color:#efe7e0}
+.box{position:absolute;left:260px;right:260px;bottom:300px;min-height:230px;border-radius:40px;background:#1e1a1b;border:2px solid #342d2e;padding:46px 56px 46px 150px;font-size:50px;line-height:1.55}
+.caret{display:inline-block;width:4px;height:58px;background:#fed7b8;vertical-align:middle;margin-right:4px}
+.send{position:absolute;left:40px;bottom:40px;width:90px;height:90px;border-radius:50%;background:#efe7e0;display:grid;place-items:center}
+.hint{position:absolute;top:330px;left:0;right:0;text-align:center;font-size:64px;font-weight:300;color:#9a8f8a}
+</style></head><body>
+<div class="hint" id="hint">عايز تبني إيه النهارده؟</div>
+<div class="box"><span id="tx"></span><span class="caret" id="caret"></span>
+<div class="send" id="send"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#121011" stroke-width="2.4" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div></div>
+<script src="anim.js"></script>
+<script>
+const S='اعمل لي موقع لمحمصة قهوة اسمها «دار البُنّ»: منتجات، سلة، وزرار «ابعت الطلب».';
+const chars=[...S];
+window.seek=t=>{const n=Math.round(chars.length*prog(t,0.2,1.5));$('#tx').textContent=chars.slice(0,n).join('');
+ $('#caret').style.opacity=(t<1.5||Math.floor(t*2.5)%2===0)&&t<1.7?1:0;
+ const s=1-.12*Math.sin(Math.PI*prog(t,1.7,1.9)); $('#send').style.transform=`scale(${s})`;
+ $('#hint').style.opacity=1-prog(t,1.7,2.0)*.6;};
+</script></body></html>

@@ -1,0 +1,54 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<link rel="stylesheet" href="common.css">
+<style>
+/* Laptop screen-replacement plate for the business owner (1920x1200, 16:10).
+   ?mode=empty  → Scene 05: nothing arrives, "last refresh" keeps ticking.
+   ?mode=arrive → Scene 06 end / Scene 07 end: order #1047 lands (cue 1.2s). */
+body{background:#f4f1ee;color:#1f1b1a;font-size:26px;display:flex}
+aside{width:330px;background:#1d1718;color:#d9cfc9;padding:46px 34px}
+aside .b{font-size:36px;font-weight:700;color:#fff;margin-bottom:60px}
+aside .it{padding:18px 22px;border-radius:14px;margin-bottom:8px;font-size:26px}
+aside .it.on{background:#2f2627;color:#fff}
+aside .it i{float:left;background:#3a2f30;border-radius:10px;padding:0 12px;font-style:normal;font-size:22px}
+main{flex:1;padding:50px 60px}
+.top{display:flex;justify-content:space-between;align-items:center}
+h1{font-size:50px;font-weight:700}
+.ref{color:#857a76;font-size:24px;display:flex;align-items:center;gap:12px}
+.dot{width:16px;height:16px;border-radius:50%;border:3px solid #c9bfba;border-top-color:#857a76}
+.kpis{display:flex;gap:26px;margin-top:40px}
+.k{flex:1;background:#fff;border-radius:22px;padding:30px 34px;box-shadow:0 2px 0 #e9e3df}
+.k .l{color:#857a76;font-size:24px}.k .v{font-size:64px;font-weight:700;margin-top:6px}
+.tbl{background:#fff;border-radius:22px;margin-top:30px;height:640px;position:relative;overflow:hidden;box-shadow:0 2px 0 #e9e3df}
+.hd,.row{display:grid;grid-template-columns:1.1fr 2fr 1.2fr 1fr 1.3fr;padding:24px 40px;align-items:center}
+.hd{color:#857a76;font-size:22px;border-bottom:2px solid #f0ebe8}
+.row{border-bottom:2px solid #f6f2f0;font-size:26px}
+.st{display:inline-block;padding:6px 18px;border-radius:30px;font-size:22px;background:#eef0ec;color:#5a6b55}
+.new .st{background:#59171b;color:#fed7b8}
+.empty{position:absolute;inset:90px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#a39894}
+.empty .ic{width:130px;height:130px;border-radius:30px;background:#f6f2f0;display:grid;place-items:center;margin-bottom:26px}
+.empty b{font-size:36px;color:#6a5f5b;font-weight:600}
+.toast{position:absolute;top:44px;left:60px;background:#1d1718;color:#fff;border-radius:20px;padding:26px 34px;display:flex;gap:20px;align-items:center;font-size:28px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.toast span{width:18px;height:18px;border-radius:50%;background:#fed7b8;box-shadow:0 0 0 8px rgba(254,215,184,.25)}
+</style></head><body>
+<aside><div class="b">دار البُنّ</div><div class="it">الرئيسية</div><div class="it on">الطلبات <i id="badge">0</i></div><div class="it">المنتجات</div><div class="it">العملاء</div><div class="it">الإعدادات</div></aside>
+<main><div class="top"><h1>الطلبات</h1><div class="ref"><div class="dot" id="dot"></div><span id="reft">آخر تحديث: الآن</span></div></div>
+<div class="kpis"><div class="k"><div class="l">طلبات جديدة</div><div class="v" id="kn">0</div></div><div class="k"><div class="l">طلبات اليوم</div><div class="v" id="kt">0</div></div><div class="k"><div class="l">مبيعات اليوم</div><div class="v" id="ks">0 <small style="font-size:28px">ج.م</small></div></div></div>
+<div class="tbl"><div class="hd"><div>رقم الطلب</div><div>العميل</div><div>الوقت</div><div>الإجمالي</div><div>الحالة</div></div>
+ <div id="rows"><div class="row new" id="nr"><div>#1047</div><div>عميل جديد — بُن حَراز 500 جم</div><div>الآن</div><div>780 ج.م</div><div><span class="st">جديد</span></div></div></div>
+ <div class="empty" id="empty"><div class="ic"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#b9aea9" stroke-width="1.6"><path d="M4 7h16l-1.5 12h-13z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></div><b>مفيش طلبات جديدة</b><div style="margin-top:10px">آخر طلب: أمس 11:42 م</div></div>
+</div></main>
+<div class="toast" id="toast"><span></span>طلب جديد ‎#1047 — 780 ج.م</div>
+<script src="anim.js"></script>
+<script>
+const mode=new URLSearchParams(location.search).get('mode')||'empty';
+window.seek=t=>{
+ $('#dot').style.transform=`rotate(${t*360}deg)`;
+ const arrive=mode==='arrive'?eback(prog(t,1.2,1.7)):0;
+ $('#nr').style.transform=`translateY(${(1-arrive)*-120}px)`; $('#nr').style.opacity=arrive>0?Math.min(1,arrive*1.5):0;
+ $('#nr').style.background=`rgba(254,215,184,${.55*prog(t,1.2,1.5)*(1-prog(t,2.6,3.6))+(mode==='arrive'?.12*prog(t,3,3.6):0)})`;
+ $('#empty').style.opacity=1-prog(t,1.0,1.25)*(mode==='arrive'?1:0);
+ const on=mode==='arrive'&&t>=1.25; $('#kn').textContent=on?'1':'0';$('#kt').textContent=on?'1':'0';$('#badge').textContent=on?'1':'0';
+ $('#ks').firstChild.textContent=on?'780 ':'0 ';
+ const ts=eo(prog(t,1.35,1.75))*(1-prog(t,3.4,3.8)); $('#toast').style.opacity=mode==='arrive'?ts:0; $('#toast').style.transform=`translateY(${(1-ts)*-30}px)`;
+};
+</script></body></html>

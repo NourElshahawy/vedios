@@ -1,0 +1,10 @@
+# regenerable / heavy — rebuild with the commands in README.md
+renders/*.mov
+renders/qa/
+cgi/frames/
+cgi/still_*.png
+cgi/*.done
+cgi/render.log
+shots/
+gen/post/
+__pycache__/
