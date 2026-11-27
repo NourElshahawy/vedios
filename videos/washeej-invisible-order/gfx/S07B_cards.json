@@ -1,0 +1,6 @@
+[{"png":"renders/GFX_07_window_1.png","x":585,"y":170,"w":400,"t_in":0.15,"depth":0.7},
+ {"png":"renders/GFX_07_window_2.png","x":40,"y":860,"w":380,"t_in":0.6,"depth":0.5},
+ {"png":"renders/GFX_07_window_4.png","x":600,"y":780,"w":390,"t_in":1.0,"depth":0.8},
+ {"png":"renders/GFX_07_window_3.png","x":30,"y":180,"w":300,"t_in":1.4,"depth":0.3},
+ {"png":"renders/GFX_07_window_6.png","x":580,"y":1250,"w":400,"t_in":1.8,"depth":0.9},
+ {"png":"renders/GFX_07_window_5.png","x":60,"y":1260,"w":360,"t_in":2.2,"depth":0.6}]

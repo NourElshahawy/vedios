@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Track a phone/laptop screen and replace it with a rendered GFX plate (free alternative to a planar tracker).
-usage: python3 tools/screen_replace.py <shot.mp4> <insert.mov> <out.mp4> --corners "x1,y1 x2,y2 x3,y3 x4,y4" [--insert-from 0] [--hold-at SEC]
+usage: python3 tools/screen_replace.py <shot.mp4> <insert.mov> <out.mp4> --corners "x1,y1 x2,y2 x3,y3 x4,y4" [--insert-from 0] [--hold-at SEC] [--luma-key 170]
 corners = screen TL TR BR BL on the FIRST frame of the shot (pixel coords of the source file).
 --hold-at: freeze the insert at that insert-time (for bullet time) while the camera keeps moving.
 Tracking: KLT features in a ring around the screen (the blank screen itself has no texture) → RANSAC homography, chained per frame."""
@@ -9,12 +9,15 @@ a=sys.argv; shot,ins,out=a[1],a[2],a[3]
 opt=lambda k,d=None:a[a.index(k)+1] if k in a else d
 C=np.float32([[float(v) for v in p.split(',')] for p in opt('--corners').split()])
 ifrom=float(opt('--insert-from',0)); hold=opt('--hold-at'); hold=float(hold) if hold else None
+DL=float(opt('--delay',0))   # hold the plate's first frame this many seconds before it starts playing
+LK=opt('--luma-key'); LK=float(LK) if LK else None   # only replace pixels brighter than this (keeps fingers over a white screen)
 cap=cv2.VideoCapture(shot); fps=cap.get(cv2.CAP_PROP_FPS) or 30
 W=int(cap.get(3)); H=int(cap.get(4))
 tmp=tempfile.mkdtemp(); ip=os.path.join(tmp,'%05d.png')
 subprocess.run(["ffmpeg","-loglevel","error","-ss",str(ifrom),"-i",ins,"-vf",f"fps={fps}",ip],check=True)
 plates=sorted(os.listdir(tmp))
 def plate(i):
+    i=max(0,i-int(round(DL*fps)))
     k=int(round(hold*fps))-int(round(ifrom*fps)) if hold is not None and i/fps+ifrom>=hold else i
     return cv2.imread(os.path.join(tmp,plates[min(max(k,0),len(plates)-1)]))
 ok,prev=cap.read(); pg=cv2.cvtColor(prev,cv2.COLOR_BGR2GRAY)
@@ -29,6 +32,9 @@ while True:
     Hm=cv2.getPerspectiveTransform(np.float32([[0,0],[pw,0],[pw,ph],[0,ph]]),cur)
     warp=cv2.warpPerspective(p,Hm,(W,H),flags=cv2.INTER_LANCZOS4)
     mask=np.zeros((H,W),np.float32); cv2.fillConvexPoly(mask,cur.astype(np.int32),1.0,lineType=cv2.LINE_AA)
+    if LK is not None:
+        Y=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY).astype(np.float32)
+        k=np.clip((Y-LK)/25.0,0,1); k=cv2.morphologyEx(k,cv2.MORPH_CLOSE,np.ones((5,5),np.uint8)); mask=mask*cv2.GaussianBlur(k,(5,5),0)
     mask=cv2.GaussianBlur(mask,(3,3),0)[...,None]
     glare=cv2.GaussianBlur(frame,(0,0),9).astype(np.float32)*0.06   # keep a hint of real reflections
     comp=frame*(1-mask)+np.clip(warp+glare,0,255)*mask

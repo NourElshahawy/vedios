@@ -60,6 +60,12 @@ tools/post_wan.sh gen/clips/S03A_t1.mp4 shots/S03A.mp4
 tools/post_cgi.sh cgi/S04B.mp4 shots/S04B.mp4
 # تتبع شاشة واستبدالها
 python3 tools/screen_replace.py shots/S03A.mp4 renders/GFX_03_phone_ui.mov shots/S03A_comp.mp4 --corners "x1,y1 x2,y2 x3,y3 x4,y4"
+# تتبع شاشة عليها صوابع (الواجهة تتحط على الأجزاء البيضا بس) + تأخير ظهورها
+python3 tools/screen_replace.py shots/S03C.mp4 renders/GFX_03_phone_ui.mov shots/S03C_comp.mp4 --corners "..." --insert-from 2.0 --delay 2.34 --luma-key 165
+# كروت UI طايرة حوالين شخص (نوافذ مشاكل، إشعارات)
+python3 tools/float_cards.py shots/S07B.mp4 shots/S07B_comp.mp4 gfx/S07B_cards.json
+# مؤثرات صوتية مولّدة برمجيًا (من غير تراخيص)
+python3 tools/make_sfx.py
 # مونتاج
 python3 tools/assemble.py --check
 python3 tools/assemble.py            # النهائي
@@ -112,6 +118,9 @@ Playwright و Chromium موجودين جاهزين، و ffmpeg و ImageMagick ك
 - الهوموجرافي يتحسب **من الفريم المرجعي** (مش تراكمي). اتختبر بخطأ حوالي بكسل واحد.
 
 **الصوت:**
+- **أول ما يوصل التسجيل فرّغه بـ Whisper وقارنه بالنص المعتمد**. في وشيج التسجيل وصل بلهجة خليجية، وكان لازم يتعمل قرار من العميل (`docs/VO_CHECK.md`).
+- لو البريف طالب صمت بعد جملة معينة والتسجيل مفيهوش، زوّد صمت في الملف (ffmpeg concat) من غير ما تلمس الكلام.
+- من غير موسيقى، المؤثرات الصوتية بتشيل الإيقاع كله. `make_sfx.py` بيولّد whoosh وضربة زجاج ووتر (Karplus-Strong) وأجراس، مجانًا ومن غير تراخيص.
 - السكربت الصوتي ما يتغيرش ولا حرف. وبعد التسجيل اتأكد منه بـ Whisper (`faster-whisper` موديل `small`، والصوت يتقري كـ PCM بـ ffmpeg).
 - `measure_vo.py` بيطلّع أماكن الجمل، فحدّث `timeline.json` وحرّك حدود اللقطات معاها.
 
